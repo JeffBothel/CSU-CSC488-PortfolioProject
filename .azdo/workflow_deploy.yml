@@ -1,0 +1,33 @@
+trigger: none
+pr: none
+
+parameters:
+- name: ENVIRONMENT
+  displayName: Environment
+  type: string
+  values:
+    - dev
+    - test
+    - prod
+
+variables:
+- ${{ if eq(parameters.ENVIRONMENT, 'dev') }}:
+  - group: iac-solution_dev
+  - group: tfstate_dev
+
+- ${{ if eq(parameters.ENVIRONMENT, 'test') }}:
+  - group: iac-solution_test
+  - group: tfstate_test
+
+- ${{ if eq(parameters.ENVIRONMENT, 'prod') }}:
+  - group: iac-solution_prod
+  - group: tfstate_prod
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+  fetchDepth: 10
+  sparseCheckoutDirectories: |
+    .iac
