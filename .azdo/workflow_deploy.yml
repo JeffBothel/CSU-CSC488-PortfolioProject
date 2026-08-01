@@ -5,6 +5,7 @@ parameters:
 - name: ENVIRONMENT
   displayName: Environment
   type: string
+  default: dev
   values:
     - dev
     - test
@@ -26,8 +27,18 @@ variables:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- checkout: self
-  fetchDepth: 10
-  sparseCheckoutDirectories: |
-    .iac
+jobs:
+- deployment: TerraformDeploy
+  environment: ${{ parameters.ENVIRONMENT }}
+  displayName: Deployment of Terraform
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+          - checkout: self
+            fetchDepth: 10
+            sparseCheckoutDirectories: |
+              .iac
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: 'latest'
