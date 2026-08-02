@@ -31,12 +31,12 @@ resource "azurerm_role_assignment" "agent_services_storage_blob_data_reader" {
 resource "azurerm_cognitive_deployment" "agent_services_finetuned" {
   count                = 1
   provider             = azurerm.environment
-  name                 = "ft-gpt-4o-mini"
+  name                 = "ft-gpt-mini0"
   cognitive_account_id = azurerm_cognitive_account.agent_services.id
 
   model {
     format  = "OpenAI"
-    name    = "gpt-4o-mini"
+    name    = "gpt-4.1-mini"
     version = "2024-07-18"
   }
 
