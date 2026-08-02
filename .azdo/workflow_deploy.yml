@@ -69,11 +69,11 @@ jobs:
               provider: azurerm
               command: validate
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
-              workingDirectory: '${Build.SourcesDirectory}/.iac'
+              workingDirectory: '$(Build.SourcesDirectory)/.iac'
           - task: TerraformTask@5
             displayName: Terraform Apply
             inputs:
               provider: azurerm
               command: apply
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
-              workingDirectory: '${Build.SourcesDirectory}/.iac'
+              workingDirectory: '$(Build.SourcesDirectory)/.iac'
