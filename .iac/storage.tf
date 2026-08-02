@@ -9,8 +9,8 @@ resource "random_string" "storage_account_name" {
 resource "azurerm_storage_account" "foundry" {
   provider                         = azurerm.environment
   name                             = random_string.storage_account_name.result
-  resource_group_name              = azurerm_resource_group.main.name
-  location                         = azurerm_resource_group.main.location
+  resource_group_name              = azurerm_resource_group.root.name
+  location                         = azurerm_resource_group.root.location
   account_tier                     = "Standard"
   account_replication_type         = "LRS"
   account_kind                     = "StorageV2"
@@ -55,8 +55,8 @@ resource "azurerm_storage_account" "foundry" {
 resource "azurerm_private_endpoint" "storage_blob" {
   provider            = azurerm.environment
   name                = "pep-${azurerm_storage_account.foundry.name}-blob"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.root.location
+  resource_group_name = azurerm_resource_group.root.name
   subnet_id           = azurerm_subnet.private_endpoints.id
 
   depends_on = [

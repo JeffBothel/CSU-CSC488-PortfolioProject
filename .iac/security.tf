@@ -10,7 +10,7 @@ resource "azurerm_key_vault" "this" {
   public_network_access_enabled = false
 
   depends_on = [
-    azurerm_virtual_network.this,
+    azurerm_virtual_network.main,
     azurerm_subnet.private_endpoint
   ]
 
