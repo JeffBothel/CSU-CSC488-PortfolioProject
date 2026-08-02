@@ -53,7 +53,7 @@ jobs:
               .iac
           - task: TerraformInstaller@1
             inputs:
-              terraformVersion: 'latest'
+              terraformVersion: '1.11.3'
           - task: TerraformTask@5
             displayName: Terraform Initiatlization
             env:
@@ -84,8 +84,8 @@ jobs:
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
-              command: custom
-              customCommand: 'plan -out=tfplan'
+              command: plan
+              commandOptions: '-out=tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
@@ -95,7 +95,7 @@ jobs:
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
-              command: custom
-              customCommand: 'apply -auto-approve tfplan'
+              command: apply
+              commandOptions: '-auto-approve tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
