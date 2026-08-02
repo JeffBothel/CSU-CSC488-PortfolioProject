@@ -40,15 +40,15 @@ locals {
 resource "azurerm_virtual_network" "main" {
 	name                = "vnet-csc488"
   provider            = azurerm.environment
-	location            = azurerm_resource_group.main.location
-	resource_group_name = azurerm_resource_group.main.name
+	location            = azurerm_resource_group.root.location
+	resource_group_name = azurerm_resource_group.root.name
 	address_space       = locals.vnet_cidr
 }
 
 resource "azurerm_subnet" "private_endpoints" {
 	name                 = "snet-private-endpoints"
 	provider            = azurerm.environment
-	resource_group_name = azurerm_resource_group.main.name
+	resource_group_name = azurerm_resource_group.root.name
 	virtual_network_name = azurerm_virtual_network.main.name
 	address_prefixes     = [locals.vnet_subnets.private_endpoints]
 
@@ -58,7 +58,7 @@ resource "azurerm_subnet" "private_endpoints" {
 resource "azurerm_subnet" "workload" {
 	name                 = "snet-workload"
 	provider            = azurerm.environment
-	resource_group_name = azurerm_resource_group.main.name
+	resource_group_name = azurerm_resource_group.root.name
 	virtual_network_name = azurerm_virtual_network.main.name
 	address_prefixes     = [locals.vnet_subnets.workload]
 }
@@ -66,7 +66,7 @@ resource "azurerm_subnet" "workload" {
 resource "azurerm_subnet" "azure_firewall" {
 	name                 = "AzureFirewallSubnet"
 	provider            = azurerm.environment
-	resource_group_name = azurerm_resource_group.main.name
+	resource_group_name = azurerm_resource_group.root.name
 	virtual_network_name = azurerm_virtual_network.main.name
 	address_prefixes     = [locals.vnet_subnets.azure_firewall]
 }
@@ -74,8 +74,8 @@ resource "azurerm_subnet" "azure_firewall" {
 resource "azurerm_public_ip" "firewall" {
 	name                = "pip-csc488-firewall"
 	provider            = azurerm.environment
-	location            = azurerm_resource_group.main.location
-	resource_group_name = azurerm_resource_group.main.name
+	location            = azurerm_resource_group.root.location
+	resource_group_name = azurerm_resource_group.root.name
 	allocation_method   = "Static"
 	sku                 = "Standard"
 }
@@ -83,8 +83,8 @@ resource "azurerm_public_ip" "firewall" {
 resource "azurerm_firewall" "main" {
 	name                = "azfw-csc488"
 	provider            = azurerm.environment
-	location            = azurerm_resource_group.main.location
-	resource_group_name = azurerm_resource_group.main.name
+	location            = azurerm_resource_group.root.location
+	resource_group_name = azurerm_resource_group.root.name
 	sku_name            = "AZFW_VNet"
 	sku_tier            = "Standard"
 
@@ -98,14 +98,14 @@ resource "azurerm_firewall" "main" {
 resource "azurerm_route_table" "isolated_egress" {
 	name                = "rt-csc488-isolated-egress"
 	provider            = azurerm.environment
-	location            = azurerm_resource_group.main.location
-	resource_group_name = azurerm_resource_group.main.name
+	location            = azurerm_resource_group.root.location
+	resource_group_name = azurerm_resource_group.root.name
 }
 
 resource "azurerm_route" "default_to_firewall" {
 	name                   = "default-via-firewall"
 	provider            = azurerm.environment
-	resource_group_name = azurerm_resource_group.main.name
+	resource_group_name = azurerm_resource_group.root.name
 	route_table_name       = azurerm_route_table.isolated_egress.name
 	address_prefix         = "0.0.0.0/0"
 	next_hop_type          = "VirtualAppliance"
@@ -122,14 +122,14 @@ resource "azurerm_private_dns_zone" "zones" {
 	for_each            = local.private_dns_zones
 	name                = each.value
 	provider            = azurerm.environment
-	resource_group_name = azurerm_resource_group.main.name
+	resource_group_name = azurerm_resource_group.root.name
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "zones" {
 	for_each              = azurerm_private_dns_zone.zones
 	name                  = "lnk-csc488-${each.key}"
 	provider            = azurerm.environment
-	resource_group_name = azurerm_resource_group.main.name
+	resource_group_name = azurerm_resource_group.root.name
 	private_dns_zone_name = each.value.name
 	virtual_network_id    = azurerm_virtual_network.main.id
 }
