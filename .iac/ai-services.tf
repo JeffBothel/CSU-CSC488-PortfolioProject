@@ -16,10 +16,20 @@ resource "azurerm_cognitive_account" "foundry" {
   resource_group_name   = azurerm_resource_group.root.name
   custom_subdomain_name = local.foundry_account_name
   kind                  = "AIServices"
-  sku_name              = "F0"
+  sku_name              = "S0"
 
   public_network_access_enabled      = true
   outbound_network_access_restricted = false
+
+  depends_on = [
+    azurerm_virtual_network.main,
+    azurerm_subnet.workload,
+    azurerm_subnet.private_endpoints,
+    azurerm_log_analytics_workspace.main,
+    azurerm_cosmosdb_account.foundry,
+    azurerm_storage_account.foundry,
+    azurerm_key_vault.main
+  ]
 
   identity {
     type = "SystemAssigned"
