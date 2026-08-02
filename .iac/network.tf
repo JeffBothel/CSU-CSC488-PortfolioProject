@@ -1,18 +1,3 @@
-terraform {
-	required_version = ">= 1.5.0"
-
-	required_providers {
-		azurerm = {
-			source  = "hashicorp/azurerm"
-			version = ">= 3.100.0"
-		}
-	}
-}
-
-provider "azurerm" {
-	features {}
-}
-
 locals {
   vnet_cidr = "10.40.0.0/16"
   vnet_subnets = {
