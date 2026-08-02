@@ -57,6 +57,7 @@ jobs:
           - task: TerraformTask@5
             displayName: Terraform Initiatlization
             env:
+              TF_INPUT: 'false'
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: 'azurerm'
@@ -69,16 +70,17 @@ jobs:
           - task: TerraformTask@5
             displayName: Terraform Validation
             env:
+              TF_INPUT: 'false'
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
               command: validate
-              commandOptions: '-input=false'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
             displayName: Terraform Plan
             env:
+              TF_INPUT: 'false'
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
@@ -89,6 +91,7 @@ jobs:
           - task: TerraformTask@5
             displayName: Terraform Apply
             env:
+              TF_INPUT: 'false'
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
