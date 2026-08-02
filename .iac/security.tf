@@ -25,6 +25,7 @@ resource "azurerm_key_vault" "main" {
 
 # Defined thie access policy separately after creation to allow for the key vault to be stood up and then associated to the Foundry account that will run it.
 resource "azurerm_key_vault_access_policy" "foundry" {
+  provider     = azurerm.environment
   key_vault_id = azurerm_key_vault.main.id
   tenant_id    = var.AZURE_TENANT_ID
   object_id    = azurerm_cognitive_account.foundry.id
