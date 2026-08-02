@@ -54,3 +54,11 @@ jobs:
           - task: TerraformInstaller@1
             inputs:
               terraformVersion: 'latest'
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: ${{ variables.tfstateconnection }}
+              backendAzureRmStorageAccountName: ${TFSTATE_STORAGE-ACCOUNT_NAME}
+              backendAzureRmContainerName: ${TFSTATE_CONTAINER_NAME}
+              backendAzureRmKey: '${{ parameters.ENVIRONMENT }}/'
