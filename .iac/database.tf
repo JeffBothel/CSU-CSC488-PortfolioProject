@@ -1,8 +1,8 @@
 resource "azurerm_cosmosdb_account" "foundry" {
   provider            = azurerm.environment
   name                = "cosmos-foundry"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.root.location
+  resource_group_name = azurerm_resource_group.root.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
 
@@ -11,7 +11,7 @@ resource "azurerm_cosmosdb_account" "foundry" {
   }
 
   geo_location {
-    location          = azurerm_resource_group.main.location
+    location          = azurerm_resource_group.root.location
     failover_priority = 0
   }
 
@@ -21,15 +21,15 @@ resource "azurerm_cosmosdb_account" "foundry" {
 resource "azurerm_cosmosdb_sql_database" "foundry" {
   provider            = azurerm.environment
   name                = "foundry"
-  resource_group_name = azurerm_resource_group.main.name
+  resource_group_name = azurerm_resource_group.root.name
   account_name        = azurerm_cosmosdb_account.foundry.name
 }
 
 resource "azurerm_private_endpoint" "cosmosdb_foundry" {
   provider            = azurerm.environment
   name                = "pep-cosmos-foundry"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.root.location
+  resource_group_name = azurerm_resource_group.root.name
   subnet_id           = azurerm_subnet.private_endpoints.id
   depends_on = [
     azurerm_virtual_network.main,

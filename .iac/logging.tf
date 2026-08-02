@@ -22,8 +22,8 @@ resource "azurerm_private_endpoint" "law" {
   provider            = azurerm.environment
   location            = azurerm_resource_group.root.location
   resource_group_name = azurerm_resource_group.root.name
-  subnet_id           = azurerm_subnet.private_endpoint.id
-  depends_on          = [azurerm_log_analytics_workspace.main, azurerm_subnet.private_endpoint]
+  subnet_id           = azurerm_subnet.private_endpointss.id
+  depends_on          = [azurerm_log_analytics_workspace.main, azurerm_subnet.private_endpoints]
 
   private_service_connection {
     name                           = "psc-law-csc488"
@@ -38,8 +38,8 @@ resource "azurerm_private_endpoint" "appi" {
   provider            = azurerm.environment
   location            = azurerm_resource_group.root.location
   resource_group_name = azurerm_resource_group.root.name
-  subnet_id           = azurerm_subnet.private_endpoint.id
-  depends_on          = [azurerm_application_insights.main, azurerm_subnet.private_endpoint]
+  subnet_id           = azurerm_subnet.private_endpointss.id
+  depends_on          = [azurerm_application_insights.main, azurerm_subnet.private_endpoints]
 
   private_service_connection {
     name                           = "psc-appi-csc488"
