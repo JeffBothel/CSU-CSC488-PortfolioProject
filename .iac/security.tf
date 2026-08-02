@@ -61,11 +61,11 @@ resource "azurerm_private_endpoint" "key_vault" {
   provider            = azurerm.environment
   location            = azurerm_resource_group.root.location
   resource_group_name = azurerm_resource_group.root.name
-  subnet_id           = azurerm_subnet.private_endpoints
+  subnet_id           = azurerm_subnet.private_endpoints.id
 
   depends_on = [
     azurerm_virtual_network.main,
-    azurerm_subnet.private_endpoint
+    azurerm_subnet.private_endpoints
   ]
 
   private_service_connection {
