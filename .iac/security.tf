@@ -28,7 +28,7 @@ resource "azurerm_key_vault_access_policy" "foundry" {
   provider     = azurerm.environment
   key_vault_id = azurerm_key_vault.main.id
   tenant_id    = var.AZURE_TENANT_ID
-  object_id    = azurerm_cognitive_account.foundry.id
+  object_id    = azurerm_cognitive_account.foundry.identity[0].principal_id
 
   depends_on = [
     azurerm_key_vault.main,
