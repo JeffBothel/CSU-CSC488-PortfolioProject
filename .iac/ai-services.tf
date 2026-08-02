@@ -28,7 +28,12 @@ resource "azurerm_cognitive_account" "foundry" {
     azurerm_log_analytics_workspace.main,
     azurerm_cosmosdb_account.foundry,
     azurerm_storage_account.foundry,
-    azurerm_key_vault.main
+    azurerm_key_vault.main,
+    azurerm_cognitive_account.speech_language,
+    azurerm_cognitive_account.agent_services,
+    azurerm_search_service.ai_search,
+    azurerm_log_analytics_workspace.main,
+    azurerm_application_insights.main
   ]
 
   identity {
