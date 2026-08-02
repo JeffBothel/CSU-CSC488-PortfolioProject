@@ -1,4 +1,4 @@
-variable "SUBSCRIPTION_ID" {
+variable "AZURE_SUBSCRIPTION_ID" {
   description = "The subscription ID for the Azure account."
   type        = string
   validation {

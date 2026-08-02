@@ -18,11 +18,11 @@ terraform {
 
 provider "azurerm" {
   alias = "environment"
-  subscription_id = var.SUBSCRIPTION_ID
+  subscription_id = var.AZURE_SUBSCRIPTION_ID
   features {}
 }
 
 provider "azapi" {
   alias = "environment"
-  subscription_id = var.SUBSCRIPTION_ID
+  subscription_id = var.AZURE_SUBSCRIPTION_ID
 }
