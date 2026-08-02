@@ -1,7 +1,15 @@
 # Microsoft Foundry-aligned CosmosDB account with private endpoint and SQL database
+resource "random_string" "cosmosdb_suffix" {
+  length  = 40
+  upper   = false
+  lower   = true
+  numeric = true
+  special = false
+}
+
 resource "azurerm_cosmosdb_account" "foundry" {
   provider            = azurerm.environment
-  name                = "cosmos-foundry"
+  name                = "cdb${random_string.cosmosdb_suffix.result}"
   location            = azurerm_resource_group.root.location
   resource_group_name = azurerm_resource_group.root.name
   offer_type          = "Standard"
