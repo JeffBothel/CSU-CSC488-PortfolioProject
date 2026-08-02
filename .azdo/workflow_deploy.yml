@@ -56,6 +56,8 @@ jobs:
               terraformVersion: 'latest'
           - task: TerraformTask@5
             displayName: Terraform Initiatlization
+            env:
+              TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: 'azurerm'
               command: 'init'
