@@ -1,3 +1,4 @@
+# The Azure Key Vault resource for secure storage of secrets, keys, and certificates
 resource "azurerm_key_vault" "this" {
   name                          = "kv-csc488"
   provider                      = azurerm.environment

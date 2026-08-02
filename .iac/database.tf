@@ -1,9 +1,11 @@
+# Microsoft Foundry-aligned CosmosDB account with private endpoint and SQL database
 resource "azurerm_cosmosdb_account" "foundry" {
   provider            = azurerm.environment
   name                = "cosmos-foundry"
   location            = azurerm_resource_group.root.location
   resource_group_name = azurerm_resource_group.root.name
   offer_type          = "Standard"
+  free_tier_enabled   = true
   kind                = "GlobalDocumentDB"
 
   consistency_policy {
@@ -18,6 +20,7 @@ resource "azurerm_cosmosdb_account" "foundry" {
   public_network_access_enabled = false
 }
 
+# Private database for Foundry agent services with private endpoint for secure access
 resource "azurerm_cosmosdb_sql_database" "foundry" {
   provider            = azurerm.environment
   name                = "foundry"
