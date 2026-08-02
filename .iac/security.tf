@@ -21,39 +21,47 @@ resource "azurerm_key_vault" "main" {
     bypass         = "AzureServices"
   }
 
-  access_policy {
-    tenant_id = var.AZURE_TENANT_ID
-    object_id = azurerm_cognitive_account.foundry.id
+}
 
-    key_permissions = [
-      "Get",
-      "List",
-      "Create",
-      "Delete",
-      "Update",
-      "Recover",
-      "Purge"
-    ]
+# Defined thie access policy separately after creation to allow for the key vault to be stood up and then associated to the Foundry account that will run it.
+resource "azurerm_key_vault_access_policy" "foundry" {
+  key_vault_id = azurerm_key_vault.main.id
+  tenant_id    = var.AZURE_TENANT_ID
+  object_id    = azurerm_cognitive_account.foundry.id
 
-    secret_permissions = [
-      "Get",
-      "List",
-      "Set",
-      "Delete",
-      "Recover",
-      "Purge"
-    ]
+  depends_on = [
+    azurerm_key_vault.main,
+    azurerm_cognitive_account.foundry
+  ]
 
-    certificate_permissions = [
-      "Get",
-      "List",
-      "Create",
-      "Delete",
-      "Update",
-      "Recover",
-      "Purge"
-    ]
-  }
+  key_permissions = [
+    "Get",
+    "List",
+    "Create",
+    "Delete",
+    "Update",
+    "Recover",
+    "Purge"
+  ]
+
+  secret_permissions = [
+    "Get",
+    "List",
+    "Set",
+    "Delete",
+    "Recover",
+    "Purge"
+  ]
+
+  certificate_permissions = [
+    "Get",
+    "List",
+    "Create",
+    "Delete",
+    "Update",
+    "Recover",
+    "Purge"
+  ]
 }
 
 resource "azurerm_private_endpoint" "key_vault" {
