@@ -84,8 +84,8 @@ jobs:
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
-              command: validate
-              commandOptions: '-out tfplan'
+              command: custom
+              customCommand: 'plan -out=tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
@@ -95,7 +95,7 @@ jobs:
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
-              command: apply
-              commandOptions: 'tfplan'
+              command: custom
+              customCommand: 'apply -auto-approve tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
