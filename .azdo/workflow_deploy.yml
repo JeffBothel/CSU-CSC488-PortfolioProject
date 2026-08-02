@@ -13,14 +13,26 @@ parameters:
 
 variables:
 - ${{ if eq(parameters.ENVIRONMENT, 'dev') }}:
+  - name: tfstateconnection
+    value: Terraform-State-Dev
+  - name: tfresourceconnection
+    value: Terraform-state-Dev
   - group: iac-solution_dev
   - group: tfstate_dev
 
 - ${{ if eq(parameters.ENVIRONMENT, 'test') }}:
+  - name: tfstateconnection
+    value: Terraform-State-Test
+  - name: tfresourceconnection
+    value: Terraform-state-Test
   - group: iac-solution_test
   - group: tfstate_test
 
 - ${{ if eq(parameters.ENVIRONMENT, 'prod') }}:
+  - name: tfstateconnection
+    value: Terraform-State-Prod
+  - name: tfresourceconnection
+    value: Terraform-state-Prod
   - group: iac-solution_prod
   - group: tfstate_prod
 
