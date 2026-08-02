@@ -1,5 +1,5 @@
 # The Azure Key Vault resource for secure storage of secrets, keys, and certificates
-resource "azurerm_key_vault" "this" {
+resource "azurerm_key_vault" "main" {
   name                          = "kv-csc488"
   provider                      = azurerm.environment
   location                      = azurerm_resource_group.root.location
@@ -57,20 +57,20 @@ resource "azurerm_key_vault" "this" {
 }
 
 resource "azurerm_private_endpoint" "key_vault" {
-  name                = "pe-${azurerm_key_vault.this.name}"
+  name                = "pe-${azurerm_key_vault.main.name}"
   provider            = azurerm.environment
-  location            = azurerm_resource_group.this.location
-  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.root.location
+  resource_group_name = azurerm_resource_group.root.name
   subnet_id           = azurerm_subnet.private_endpoints
 
   depends_on = [
-    azurerm_virtual_network.this,
+    azurerm_virtual_network.main,
     azurerm_subnet.private_endpoint
   ]
 
   private_service_connection {
-    name                           = "psc-${azurerm_key_vault.this.name}"
-    private_connection_resource_id = azurerm_key_vault.this.id
+    name                           = "psc-${azurerm_key_vault.main.name}"
+    private_connection_resource_id = azurerm_key_vault.main.id
     is_manual_connection           = false
     subresource_names              = ["vault"]
   }
