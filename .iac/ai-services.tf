@@ -26,11 +26,10 @@ resource "azurerm_cognitive_account" "foundry" {
     azurerm_subnet.workload,
     azurerm_subnet.private_endpoints,
     azurerm_log_analytics_workspace.main,
+    azurerm_application_insights.main,
     azurerm_cosmosdb_account.foundry,
     azurerm_storage_account.foundry,
-    azurerm_key_vault.main,
-    azurerm_log_analytics_workspace.main,
-    azurerm_application_insights.main
+    azurerm_key_vault.main
   ]
 
   identity {
