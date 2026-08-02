@@ -51,6 +51,16 @@ jobs:
             fetchDepth: 10
             sparseCheckoutDirectories: |
               .iac
+          - bash: |
+              echo "Build.SourcesDirectory:"
+              echo "$(Build.SourcesDirectory)"
+              echo ""
+              echo "Pipeline.Workspace:"
+              echo "$(Pipeline.Workspace)"
+              echo ""
+              echo "Repository Structure:"
+              find "$(Build.SourcesDirectory)" -print | sort
+            displayName: 'List Repository Files'
           - task: TerraformInstaller@1
             inputs:
               terraformVersion: 'latest'
