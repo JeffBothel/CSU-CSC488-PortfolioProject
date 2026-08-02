@@ -21,7 +21,7 @@ resource "azurerm_key_vault" "this" {
 
   access_policy {
     tenant_id = var.AZURE_TENANT_ID
-    object_id = azurerm_cognitive_account.foundry_space.identity[0].principal_id
+    object_id = azurerm_cognitive_account.foundry.principal_id
 
     key_permissions = [
       "Get",
