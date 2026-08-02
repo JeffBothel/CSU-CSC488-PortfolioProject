@@ -62,3 +62,13 @@ jobs:
               backendAzureRmStorageAccountName: ${TFSTATE_STORAGE-ACCOUNT_NAME}
               backendAzureRmContainerName: ${TFSTATE_CONTAINER_NAME}
               backendAzureRmKey: '/CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
+          - task: TerraformTask@5
+            inputs:
+              provider: azurerm
+              command: validate
+              environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
+          - task: TerraformTask@5
+            inputs:
+              provider: azurerm
+              command: apply
+              environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
