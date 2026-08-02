@@ -42,7 +42,7 @@ resource "azurerm_virtual_network" "main" {
   provider            = azurerm.environment
 	location            = azurerm_resource_group.root.location
 	resource_group_name = azurerm_resource_group.root.name
-	address_space       = locals.vnet_cidr
+	address_space       = [local.vnet_cidr]
 }
 
 resource "azurerm_subnet" "private_endpoints" {
@@ -50,7 +50,7 @@ resource "azurerm_subnet" "private_endpoints" {
 	provider            = azurerm.environment
 	resource_group_name = azurerm_resource_group.root.name
 	virtual_network_name = azurerm_virtual_network.main.name
-	address_prefixes     = [locals.vnet_subnets.private_endpoints]
+	address_prefixes     = [local.vnet_subnets.private_endpoints]
 
 	private_endpoint_network_policies = "Disabled"
 }
@@ -60,7 +60,7 @@ resource "azurerm_subnet" "workload" {
 	provider            = azurerm.environment
 	resource_group_name = azurerm_resource_group.root.name
 	virtual_network_name = azurerm_virtual_network.main.name
-	address_prefixes     = [locals.vnet_subnets.workload]
+	address_prefixes     = [local.vnet_subnets.workload]
 }
 
 resource "azurerm_subnet" "azure_firewall" {
@@ -68,7 +68,7 @@ resource "azurerm_subnet" "azure_firewall" {
 	provider            = azurerm.environment
 	resource_group_name = azurerm_resource_group.root.name
 	virtual_network_name = azurerm_virtual_network.main.name
-	address_prefixes     = [locals.vnet_subnets.azure_firewall]
+	address_prefixes     = [local.vnet_subnets.azure_firewall]
 }
 
 resource "azurerm_public_ip" "firewall" {
