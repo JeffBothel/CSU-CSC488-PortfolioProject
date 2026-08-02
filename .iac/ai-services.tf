@@ -36,7 +36,7 @@ locals {
       deployment_name = "agent-gpt-chat-large"
       model_name      = "gpt-5.4"
       sku_name        = "GlobalStandard"
-      model_version   = "2026-03-17"
+      model_version   = "2026-03-05"
       capacity        = 5
     }
     agent_embed = {
@@ -220,7 +220,7 @@ resource "azurerm_cognitive_deployment" "foundry_models" {
   }
 
   sku {
-    name     = "Standard"
+    name     = each.value.sku_name
     capacity = each.value.capacity
   }
 
@@ -242,7 +242,7 @@ resource "azurerm_cognitive_deployment" "agent_models" {
   }
 
   sku {
-    name     = "Standard"
+    name     = each.value.sku_name
     capacity = each.value.capacity
   }
 

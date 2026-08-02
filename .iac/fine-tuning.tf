@@ -41,7 +41,7 @@ resource "azurerm_cognitive_deployment" "agent_services_finetuned" {
   }
 
   sku {
-    name     = "Standard"
+    name     = "GlobalStandard"
     capacity = 1
   }
 
