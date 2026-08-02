@@ -213,6 +213,18 @@ resource "azurerm_role_assignment" "foundry_search_index_data_reader" {
   ]
 }
 
+resource "azurerm_role_assignment" "foundry_search_index_data_contributor" {
+  provider             = azurerm.environment
+  scope                = azurerm_search_service.ai_search.id
+  role_definition_name = "Search Index Data Contributor"
+  principal_id         = azurerm_cognitive_account.foundry.identity[0].principal_id
+
+  depends_on = [
+    azurerm_search_service.ai_search,
+    azurerm_cognitive_account.foundry
+  ]
+}
+
 resource "azurerm_role_assignment" "agent_search_service_contributor" {
   provider             = azurerm.environment
   scope                = azurerm_search_service.ai_search.id
@@ -229,6 +241,18 @@ resource "azurerm_role_assignment" "agent_search_index_data_reader" {
   provider             = azurerm.environment
   scope                = azurerm_search_service.ai_search.id
   role_definition_name = "Search Index Data Reader"
+  principal_id         = azurerm_cognitive_account.agent_services.identity[0].principal_id
+
+  depends_on = [
+    azurerm_search_service.ai_search,
+    azurerm_cognitive_account.agent_services
+  ]
+}
+
+resource "azurerm_role_assignment" "agent_search_index_data_contributor" {
+  provider             = azurerm.environment
+  scope                = azurerm_search_service.ai_search.id
+  role_definition_name = "Search Index Data Contributor"
   principal_id         = azurerm_cognitive_account.agent_services.identity[0].principal_id
 
   depends_on = [
