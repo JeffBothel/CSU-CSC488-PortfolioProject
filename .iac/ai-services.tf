@@ -6,6 +6,42 @@ locals {
   speech_account_name  = "speech-csc488"
   agent_account_name   = "agent-csc488"
   search_service_name  = "aisearchcsc488"
+
+  foundry_service_models = {
+    foundry_chat_small = {
+      deployment_name = "foundry-chat-small"
+      model_name      = "gpt-4.1-mini"
+      model_version   = "2025-04-14"
+      capacity        = 20
+    }
+    foundry_embed = {
+      deployment_name = "foundry-embed-main"
+      model_name      = "text-embedding-3-large"
+      model_version   = "1"
+      capacity        = 10
+    }
+  }
+
+  agent_service_models = {
+    agent_chat_small = {
+      deployment_name = "agent-chat-small"
+      model_name      = "gpt-4.1-mini"
+      model_version   = "2025-04-14"
+      capacity        = 20
+    }
+    agent_chat_large = {
+      deployment_name = "agent-chat-large"
+      model_name      = "gpt-4.1"
+      model_version   = "2025-04-14"
+      capacity        = 10
+    }
+    agent_embed = {
+      deployment_name = "agent-embed-main"
+      model_name      = "text-embedding-3-large"
+      model_version   = "1"
+      capacity        = 10
+    }
+  }
 }
 
 # Microsoft Foundry-aligned AI account (multi-service) with open inbound and VNet-linked egress intent
@@ -163,5 +199,49 @@ resource "azurerm_monitor_diagnostic_setting" "ai_services_logs" {
   depends_on = [
     azurerm_cognitive_account.foundry,
     azurerm_log_analytics_workspace.main
+  ]
+}
+
+resource "azurerm_cognitive_deployment" "foundry_models" {
+  for_each             = local.foundry_service_models
+  provider             = azurerm.environment
+  name                 = each.value.deployment_name
+  cognitive_account_id = azurerm_cognitive_account.foundry.id
+
+  model {
+    format  = "OpenAI"
+    name    = each.value.model_name
+    version = each.value.model_version
+  }
+
+  sku {
+    name     = "Standard"
+    capacity = each.value.capacity
+  }
+
+  depends_on = [
+    azurerm_cognitive_account.foundry
+  ]
+}
+
+resource "azurerm_cognitive_deployment" "agent_models" {
+  for_each             = local.agent_service_models
+  provider             = azurerm.environment
+  name                 = each.value.deployment_name
+  cognitive_account_id = azurerm_cognitive_account.agent_services.id
+
+  model {
+    format  = "OpenAI"
+    name    = each.value.model_name
+    version = each.value.model_version
+  }
+
+  sku {
+    name     = "Standard"
+    capacity = each.value.capacity
+  }
+
+  depends_on = [
+    azurerm_cognitive_account.agent_services
   ]
 }
