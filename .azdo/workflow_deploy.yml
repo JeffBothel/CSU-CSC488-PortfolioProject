@@ -65,7 +65,7 @@ jobs:
               backendServiceArm: ${{ variables.tfstateconnection }}
               backendAzureRmStorageAccountName: $(TFSTATE_STORAGE-ACCOUNT_NAME)
               backendAzureRmContainerName: 'jeffbothel'
-              backendAzureRmKey: '/CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
+              backendAzureRmKey: 'CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
           - task: TerraformTask@5
             displayName: Terraform Validation
             env:
