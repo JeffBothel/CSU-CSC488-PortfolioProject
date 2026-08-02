@@ -10,11 +10,12 @@ locals {
 
 # Microsoft Foundry-aligned AI account (multi-service) with open inbound and VNet-linked egress intent
 resource "azurerm_cognitive_account" "foundry" {
-  name                = local.foundry_account_name
-  location            = azurerm_resource_group.root.location
-  resource_group_name = azurerm_resource_group.root.name
-  kind                = "AIServices"
-  sku_name            = "F0"
+  name                  = local.foundry_account_name
+  custom_subdomain_name = local.foundry_account_name
+  location              = azurerm_resource_group.root.location
+  resource_group_name   = azurerm_resource_group.root.name
+  kind                  = "AIServices"
+  sku_name              = "F0"
 
   public_network_access_enabled      = true
   outbound_network_access_restricted = false
@@ -35,11 +36,12 @@ resource "azurerm_cognitive_account" "foundry" {
 
 # Speech/Language services with storage attachment via diagnostics to shared storage
 resource "azurerm_cognitive_account" "speech_language" {
-  name                = local.speech_account_name
-  location            = azurerm_resource_group.root.location
-  resource_group_name = azurerm_resource_group.root.name
-  kind                = "SpeechServices"
-  sku_name            = "F0"
+  name                  = local.speech_account_name
+  custom_subdomain_name = local.speech_account_name
+  location              = azurerm_resource_group.root.location
+  resource_group_name   = azurerm_resource_group.root.name
+  kind                  = "SpeechServices"
+  sku_name              = "F0"
 
   public_network_access_enabled = true
 
@@ -81,11 +83,12 @@ resource "azurerm_monitor_diagnostic_setting" "speech_to_storage" {
 
 # Agent services backend (Azure OpenAI account)
 resource "azurerm_cognitive_account" "agent_services" {
-  name                = local.agent_account_name
-  location            = azurerm_resource_group.root.location
-  resource_group_name = azurerm_resource_group.root.name
-  kind                = "OpenAI"
-  sku_name            = "F0"
+  name                  = local.agent_account_name
+  custom_subdomain_name = local.agent_account_name
+  location              = azurerm_resource_group.root.location
+  resource_group_name   = azurerm_resource_group.root.name
+  kind                  = "OpenAI"
+  sku_name              = "F0"
 
   public_network_access_enabled = true
 

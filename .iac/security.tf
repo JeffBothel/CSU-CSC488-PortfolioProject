@@ -21,7 +21,7 @@ resource "azurerm_key_vault" "this" {
 
   access_policy {
     tenant_id = var.AZURE_TENANT_ID
-    object_id = data.azurerm_client_config.current.object_id
+    object_id = azurerm_cognitive_account.foundry_space.identity[0].principal_id
 
     key_permissions = [
       "Get",
@@ -59,7 +59,7 @@ resource "azurerm_private_endpoint" "key_vault" {
   provider            = azurerm.environment
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  subnet_id           = azurerm_subnet.private_endpoint.id
+  subnet_id           = azurerm_subnet.private_endpoints
 
   depends_on = [
     azurerm_virtual_network.this,
