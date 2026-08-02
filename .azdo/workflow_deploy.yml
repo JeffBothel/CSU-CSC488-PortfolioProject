@@ -55,6 +55,7 @@ jobs:
             inputs:
               terraformVersion: 'latest'
           - task: TerraformTask@5
+            displayName: Terraform Initiatlization
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -63,12 +64,14 @@ jobs:
               backendAzureRmContainerName: ${TFSTATE_CONTAINER_NAME}
               backendAzureRmKey: '/CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
           - task: TerraformTask@5
+            displayName: Terraform Validation
             inputs:
               provider: azurerm
               command: validate
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
               workingDirectory: '${Build.SourcesDirectory}/.iac'
           - task: TerraformTask@5
+            displayName: Terraform Apply
             inputs:
               provider: azurerm
               command: apply
