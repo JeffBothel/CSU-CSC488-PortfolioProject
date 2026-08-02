@@ -52,15 +52,18 @@ jobs:
             sparseCheckoutDirectories: |
               .iac
           - bash: |
-              echo "Build.SourcesDirectory:"
-              echo "$(Build.SourcesDirectory)"
+              echo "Build.SourcesDirectory=$(Build.SourcesDirectory)"
+              echo "System.DefaultWorkingDirectory=$(System.DefaultWorkingDirectory)"
               echo ""
-              echo "Pipeline.Workspace:"
-              echo "$(Pipeline.Workspace)"
+              echo "Repo root:"
+              ls -la $(Build.SourcesDirectory)
               echo ""
-              echo "Repository Structure:"
-              find "$(Build.SourcesDirectory)" -print | sort
-            displayName: 'List Repository Files'
+              echo ".iac:"
+              ls -la $(Build.SourcesDirectory)/.iac
+              echo ""
+              echo "Terraform files:"
+              find $(Build.SourcesDirectory)/.iac -name "*.tf"
+            displayName: Debug Repository
           - task: TerraformInstaller@1
             inputs:
               terraformVersion: 'latest'
