@@ -8,38 +8,38 @@ locals {
   search_service_name  = "aisearchcsc488"
 
   foundry_service_models = {
-    foundry_chat_small = {
-      deployment_name = "foundry-chat-small"
-      model_name      = "gpt-4.1-mini"
+    foundry_gpt-chat_small = {
+      deployment_name = "foundry-gpt-chat-small"
+      model_name      = "gpt-5.4-mini"
       model_version   = "2025-04-14"
-      capacity        = 20
+      capacity        = 10
     }
     foundry_embed = {
       deployment_name = "foundry-embed-main"
       model_name      = "text-embedding-3-large"
       model_version   = "1"
-      capacity        = 10
+      capacity        = 5
     }
   }
 
   agent_service_models = {
-    agent_chat_small = {
-      deployment_name = "agent-chat-small"
-      model_name      = "gpt-4.1-mini"
-      model_version   = "2025-04-14"
-      capacity        = 20
-    }
-    agent_chat_large = {
-      deployment_name = "agent-chat-large"
-      model_name      = "gpt-4.1"
+    agent_gpt-chat_small = {
+      deployment_name = "agent-gpt-chat-small"
+      model_name      = "gpt-5.4-mini"
       model_version   = "2025-04-14"
       capacity        = 10
+    }
+    agent_gpt-chat_large = {
+      deployment_name = "agent-gpt-chat-large"
+      model_name      = "gpt-5.4"
+      model_version   = "2025-04-14"
+      capacity        = 5
     }
     agent_embed = {
       deployment_name = "agent-embed-main"
       model_name      = "text-embedding-3-large"
       model_version   = "1"
-      capacity        = 10
+      capacity        = 5
     }
   }
 }

@@ -36,7 +36,7 @@ resource "azurerm_cognitive_deployment" "agent_services_finetuned" {
 
   model {
     format  = "OpenAI"
-    name    = "gpt-4.1-mini"
+    name    = "gpt-5.4-mini"
     version = "2024-07-18"
   }
 
