@@ -11,12 +11,14 @@ locals {
     foundry_gpt-chat_small = {
       deployment_name = "foundry-gpt-chat-small"
       model_name      = "gpt-5.4-mini"
+      sku_name        = "GlobalStandard"
       model_version   = "2026-03-17"
       capacity        = 10
     }
     foundry_embed = {
       deployment_name = "foundry-embed-main"
       model_name      = "text-embedding-3-large"
+      sku_name        = "GlobalStandard"
       model_version   = "1"
       capacity        = 5
     }
@@ -26,18 +28,21 @@ locals {
     agent_gpt-chat_small = {
       deployment_name = "agent-gpt-chat-small"
       model_name      = "gpt-5.4-mini"
+      sku_name        = "GlobalStandard"
       model_version   = "2026-03-17"
       capacity        = 10
     }
     agent_gpt-chat_large = {
       deployment_name = "agent-gpt-chat-large"
       model_name      = "gpt-5.4"
+      sku_name        = "GlobalStandard"
       model_version   = "2026-03-17"
       capacity        = 5
     }
     agent_embed = {
       deployment_name = "agent-embed-main"
       model_name      = "text-embedding-3-large"
+      sku_name        = "GlobalStandard"
       model_version   = "1"
       capacity        = 5
     }
