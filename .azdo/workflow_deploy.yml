@@ -51,19 +51,6 @@ jobs:
             fetchDepth: 10
             sparseCheckoutDirectories: |
               .iac
-          - bash: |
-              echo "Build.SourcesDirectory=$(Build.SourcesDirectory)"
-              echo "System.DefaultWorkingDirectory=$(System.DefaultWorkingDirectory)"
-              echo ""
-              echo "Repo root:"
-              ls -la $(Build.SourcesDirectory)
-              echo ""
-              echo ".iac:"
-              ls -la $(Build.SourcesDirectory)/.iac
-              echo ""
-              echo "Terraform files:"
-              find $(Build.SourcesDirectory)/.iac -name "*.tf"
-            displayName: Debug Repository
           - task: TerraformInstaller@1
             inputs:
               terraformVersion: 'latest'
@@ -72,7 +59,7 @@ jobs:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              workingDirectory: '$(Build.SourcesDirectory)/.iac'
+              workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               backendServiceArm: ${{ variables.tfstateconnection }}
               backendAzureRmStorageAccountName: ${TFSTATE_STORAGE-ACCOUNT_NAME}
               backendAzureRmContainerName: ${TFSTATE_CONTAINER_NAME}
@@ -82,12 +69,12 @@ jobs:
             inputs:
               provider: azurerm
               command: validate
-              workingDirectory: '$(Build.SourcesDirectory)/.iac'
+              workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
             displayName: Terraform Apply
             inputs:
               provider: azurerm
               command: apply
-              workingDirectory: '$(Build.SourcesDirectory)/.iac'
+              workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
