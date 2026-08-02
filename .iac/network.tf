@@ -62,6 +62,10 @@ resource "azurerm_subnet" "workload" {
   resource_group_name  = azurerm_resource_group.root.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = [local.vnet_subnets.workload]
+
+  service_endpoint {
+    service = "Microsoft.CognitiveServices"
+  }
 }
 
 resource "azurerm_subnet" "azure_firewall" {
@@ -78,14 +82,34 @@ resource "azurerm_subnet" "service_endpoints" {
   resource_group_name  = azurerm_resource_group.root.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = [local.vnet_subnets.service_endpoints]
-  service_endpoints = [
-    "Microsoft.Storage",
-    "Microsoft.KeyVault",
-    "Microsoft.Sql",
-    "Microsoft.Web",
-    "Microsoft.EventHub",
-    "Microsoft.ServiceBus"
-  ]
+
+  service_endpoint {
+    service = "Microsoft.Storage"
+  }
+
+  service_endpoint {
+    service = "Microsoft.KeyVault"
+  }
+
+  service_endpoint {
+    service = "Microsoft.Sql"
+  }
+
+  service_endpoint {
+    service = "Microsoft.Web"
+  }
+
+  service_endpoint {
+    service = "Microsoft.EventHub"
+  }
+
+  service_endpoint {
+    service = "Microsoft.ServiceBus"
+  }
+
+  service_endpoint {
+    service = "Microsoft.CognitiveServices"
+  }
 }
 
 resource "azurerm_public_ip" "firewall" {
