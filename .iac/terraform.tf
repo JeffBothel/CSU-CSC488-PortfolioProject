@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.15.8"
   backend "azurerm" {
     use_azuread_auth = true
-    use_oidc = true
+    use_oidc         = true
   }
   required_providers {
     azurerm = {
@@ -17,12 +17,12 @@ terraform {
 }
 
 provider "azurerm" {
-  alias = "environment"
+  alias           = "environment"
   subscription_id = var.AZURE_SUBSCRIPTION_ID
   features {}
 }
 
 provider "azapi" {
-  alias = "environment"
+  alias           = "environment"
   subscription_id = var.AZURE_SUBSCRIPTION_ID
 }
