@@ -85,7 +85,7 @@ jobs:
             inputs:
               provider: azurerm
               command: validate
-              commandOptions: '-out=tfplan'
+              commandOptions: '-out tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
