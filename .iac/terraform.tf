@@ -27,6 +27,7 @@ provider "azapi" {
   subscription_id = var.AZURE_SUBSCRIPTION_ID
 }
 
+# Resource provider feature registration for allowing prviate endpoints is to be added at the subscription.
 resource "azurerm_subscription_feature_registration" "allow_private_endpoints" {
   provider                = azurerm.environment
   name                    = "AllowPrivateEndpoints"
