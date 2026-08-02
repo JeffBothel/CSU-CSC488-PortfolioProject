@@ -50,3 +50,4 @@ resource "azurerm_cognitive_deployment" "agent_services_finetuned" {
     azurerm_role_assignment.agent_services_storage_blob_data_reader
   ]
 }
+
