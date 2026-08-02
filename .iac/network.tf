@@ -127,10 +127,10 @@ resource "azurerm_private_dns_zone" "zones" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "zones" {
-  for_each              = azurerm_private_dns_zone.zones
-  name                  = "lnk-csc488-${each.key}"
-  provider              = azurerm.environment
-  private_dns_zone_id   = each.value.id
-  virtual_network_id    = azurerm_virtual_network.main.id
+  for_each            = azurerm_private_dns_zone.zones
+  name                = "lnk-csc488-${each.key}"
+  provider            = azurerm.environment
+  private_dns_zone_id = each.value.id
+  virtual_network_id  = azurerm_virtual_network.main.id
 }
 
