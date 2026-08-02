@@ -3,7 +3,7 @@ resource "azurerm_key_vault" "this" {
   provider                      = azurerm.environment
   location                      = azurerm_resource_group.root.location
   resource_group_name           = azurerm_resource_group.root.name
-  tenant_id                     = data.azurerm_client_config.current.tenant_id
+  tenant_id                     = var.AZURE_TENANT_ID
   sku_name                      = "standard"
   purge_protection_enabled      = true
   soft_delete_retention_days    = 7
@@ -20,7 +20,7 @@ resource "azurerm_key_vault" "this" {
   }
 
   access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
+    tenant_id = var.AZURE_TENANT_ID
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [

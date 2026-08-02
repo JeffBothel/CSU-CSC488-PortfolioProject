@@ -73,6 +73,6 @@ resource "azurerm_private_endpoint" "storage_blob" {
 
   private_dns_zone_group {
     name                 = "default"
-    private_dns_zone_ids = [azurerm_private_dns_zone.storage_blob.id]
+    private_dns_zone_ids = [azurerm_private_dns_zone.zones["storage_blob"].id]
   }
 }

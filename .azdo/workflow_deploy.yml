@@ -58,7 +58,7 @@ jobs:
             displayName: Terraform Initiatlization
             env:
               TF_INPUT: 'false'
-              TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+              TF_VAR_AZURE_TENANT_ID: $(AZURE_TENANT_ID)
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -71,6 +71,7 @@ jobs:
             displayName: Terraform Validation
             env:
               TF_INPUT: 'false'
+              TF_VAR_AZURE_TENANT_ID: $(AZURE_TENANT_ID)
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
@@ -81,6 +82,7 @@ jobs:
             displayName: Terraform Plan
             env:
               TF_INPUT: 'false'
+              TF_VAR_AZURE_TENANT_ID: $(AZURE_TENANT_ID)
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
@@ -92,6 +94,7 @@ jobs:
             displayName: Terraform Apply
             env:
               TF_INPUT: 'false'
+              TF_VAR_AZURE_TENANT_ID: $(AZURE_TENANT_ID)
               TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm

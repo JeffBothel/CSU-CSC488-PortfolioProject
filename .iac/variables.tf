@@ -1,3 +1,12 @@
+variable "AZURE_TENANT_ID" {
+  description = "The tenant ID for the Azure account."
+  type        = string
+  validation {
+    condition     = can(regex("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", var.AZURE_TENANT_ID))
+    error_message = "AZURE_TENANT_ID must be a valid Azure tenant GUID in the format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx."
+  }
+}
+
 variable "AZURE_SUBSCRIPTION_ID" {
   description = "The subscription ID for the Azure account."
   type        = string
