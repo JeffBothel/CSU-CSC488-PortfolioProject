@@ -66,7 +66,7 @@ jobs:
               backendServiceArm: ${{ variables.tfstateconnection }}
               backendAzureRmStorageAccountName: $(TFSTATE_STORAGE-ACCOUNT_NAME)
               backendAzureRmContainerName: 'jeffbothel'
-              backendAzureRmKey: '/CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
+              backendAzureRmKey: 'CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
           - task: TerraformTask@5
             displayName: Terraform Validation
             env:
@@ -85,7 +85,7 @@ jobs:
             inputs:
               provider: azurerm
               command: validate
-              commandOptions: '-input=false -out=tfplan'
+              commandOptions: '--input=false -out=tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
@@ -96,6 +96,6 @@ jobs:
             inputs:
               provider: azurerm
               command: apply
-              commandOptions: '-input=false tfplan'
+              commandOptions: '--input=false tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
