@@ -113,6 +113,7 @@ resource "azurerm_route" "default_to_firewall" {
 }
 
 resource "azurerm_subnet_route_table_association" "workload" {
+  provider       = azurerm.environment
   subnet_id      = azurerm_subnet.workload.id
   route_table_id = azurerm_route_table.isolated_egress.id
 }
@@ -129,7 +130,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "zones" {
   for_each              = azurerm_private_dns_zone.zones
   name                  = "lnk-csc488-${each.key}"
   provider              = azurerm.environment
-  private_dns_zone_id   = azurerm_private_dns_zone.zones[each.value.name]
+  private_dns_zone_id   = each.value.id
   virtual_network_id    = azurerm_virtual_network.main.id
 }
 
