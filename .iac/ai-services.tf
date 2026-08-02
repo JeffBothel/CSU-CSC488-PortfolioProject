@@ -117,9 +117,9 @@ resource "azurerm_cognitive_account" "agent_services" {
 # AI Search service for Foundry integrations
 resource "azurerm_search_service" "ai_search" {
   name                = local.search_service_name
-  provider              = azurerm.environment
-  location              = azurerm_resource_group.root.location
-  resource_group_name   = azurerm_resource_group.root.name
+  provider            = azurerm.environment
+  location            = azurerm_resource_group.root.location
+  resource_group_name = azurerm_resource_group.root.name
   sku                 = "free"
 
   local_authentication_enabled  = true
