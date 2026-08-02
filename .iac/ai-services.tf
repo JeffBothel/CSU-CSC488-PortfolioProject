@@ -23,7 +23,7 @@ resource "azurerm_cognitive_account" "foundry" {
 
   depends_on = [
     azurerm_virtual_network.main,
-    azurerm_subnet.workload,
+    azurerm_subnet.service_endpoints,
     azurerm_subnet.private_endpoints,
     azurerm_log_analytics_workspace.main,
     azurerm_application_insights.main,
@@ -40,7 +40,7 @@ resource "azurerm_cognitive_account" "foundry" {
     default_action = "Allow"
 
     virtual_network_rules {
-      subnet_id = azurerm_subnet.workload.id
+      subnet_id = azurerm_subnet.service_endpoints.id
     }
   }
 
@@ -115,7 +115,7 @@ resource "azurerm_cognitive_account" "agent_services" {
     default_action = "Allow"
 
     virtual_network_rules {
-      subnet_id = azurerm_subnet.workload.id
+      subnet_id = azurerm_subnet.service_endpoints.id
     }
   }
 

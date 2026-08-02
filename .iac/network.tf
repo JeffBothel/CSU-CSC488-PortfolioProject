@@ -4,6 +4,7 @@ locals {
     private_endpoints = "10.40.1.0/24"
     workload          = "10.40.2.0/24"
     azure_firewall    = "10.40.3.0/24"
+    service_endpoints = "10.40.4.0/24"
   }
   private_dns_zones = {
     # Azure Key Vault
@@ -69,6 +70,22 @@ resource "azurerm_subnet" "azure_firewall" {
   resource_group_name  = azurerm_resource_group.root.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = [local.vnet_subnets.azure_firewall]
+}
+
+resource "azurerm_subnet" "service_endpoints" {
+  name                 = "snet-service-endpoints"
+  provider             = azurerm.environment
+  resource_group_name  = azurerm_resource_group.root.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = [local.vnet_subnets.service_endpoints]
+  service_endpoints = [
+    "Microsoft.Storage",
+    "Microsoft.KeyVault",
+    "Microsoft.Sql",
+    "Microsoft.Web",
+    "Microsoft.EventHub",
+    "Microsoft.ServiceBus"
+  ]
 }
 
 resource "azurerm_public_ip" "firewall" {
