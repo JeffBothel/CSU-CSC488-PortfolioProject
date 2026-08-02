@@ -66,15 +66,31 @@ jobs:
               backendAzureRmKey: '/CSU-CSC488-PortfolioProject/tfstate-${{ parameters.ENVIRONMENT }}.tfstate'
           - task: TerraformTask@5
             displayName: Terraform Validation
+            env:
+              TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
               command: validate
+              commandOptions: '-input=false'
+              workingDirectory: '$(Build.SourcesDirectory)/.iac/'
+              environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
+          - task: TerraformTask@5
+            displayName: Terraform Plan
+            env:
+              TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+            inputs:
+              provider: azurerm
+              command: validate
+              commandOptions: '-input=false -out=tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
             displayName: Terraform Apply
+            env:
+              TF_VAR_AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
             inputs:
               provider: azurerm
               command: apply
+              commandOptions: '-input=false tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
