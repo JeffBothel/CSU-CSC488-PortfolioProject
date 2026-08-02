@@ -54,7 +54,7 @@ resource "azurerm_cognitive_account" "speech_language" {
   resource_group_name   = azurerm_resource_group.root.name
   custom_subdomain_name = local.speech_account_name
   kind                  = "SpeechServices"
-  sku_name              = "F0"
+  sku_name              = "S0"
 
   public_network_access_enabled = true
 
@@ -103,7 +103,7 @@ resource "azurerm_cognitive_account" "agent_services" {
   resource_group_name   = azurerm_resource_group.root.name
   custom_subdomain_name = local.agent_account_name
   kind                  = "OpenAI"
-  sku_name              = "F0"
+  sku_name              = "S0"
 
   public_network_access_enabled = true
 
