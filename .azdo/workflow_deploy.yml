@@ -53,7 +53,7 @@ jobs:
               .iac
           - task: TerraformInstaller@1
             inputs:
-              terraformVersion: '1.11.3'
+              terraformVersion: 'latest'
           - task: TerraformTask@5
             displayName: Terraform Initiatlization
             env:
