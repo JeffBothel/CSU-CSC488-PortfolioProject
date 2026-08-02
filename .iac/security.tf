@@ -12,7 +12,7 @@ resource "azurerm_key_vault" "this" {
 
   depends_on = [
     azurerm_virtual_network.main,
-    azurerm_subnet.private_endpoint
+    azurerm_subnet.private_endpoints
   ]
 
   network_acls {
@@ -22,7 +22,7 @@ resource "azurerm_key_vault" "this" {
 
   access_policy {
     tenant_id = var.AZURE_TENANT_ID
-    object_id = azurerm_cognitive_account.foundry.principal_id
+    object_id = azurerm_cognitive_account.foundry.id
 
     key_permissions = [
       "Get",
