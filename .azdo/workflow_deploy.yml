@@ -73,7 +73,7 @@ jobs:
             inputs:
               provider: azurerm
               command: validate
-              commandOptions: '-input=false'
+              commandOptions: '--input=false'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
@@ -83,7 +83,7 @@ jobs:
             inputs:
               provider: azurerm
               command: validate
-              commandOptions: '-input=false -out=tfplan'
+              commandOptions: '--input=false -out=tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
           - task: TerraformTask@5
@@ -93,6 +93,6 @@ jobs:
             inputs:
               provider: azurerm
               command: apply
-              commandOptions: '-input=false tfplan'
+              commandOptions: '--input=false tfplan'
               workingDirectory: '$(Build.SourcesDirectory)/.iac/'
               environmentServiceNameAzureRM: ${{ variables.tfresourceconnection }}
