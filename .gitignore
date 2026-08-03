@@ -441,3 +441,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 *.lock.hcl
+
+# Training Data that is not to be uploaded in the repository as it is large in size and copyrighted or restricted in use by others.
+ml-32m/
